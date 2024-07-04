@@ -8,17 +8,17 @@ def canUnlockAll(boxes):
     Returns:
     bool: True if all boxes can be opened, otherwise False.
     """
-    n = len(boxes)  # Total number of boxes
-    opened = [False] * n  # Track whether each box has been opened
-    opened[0] = True  # The first box (index 0) is initially open
+    n = len(boxes)
+    opened = [False] * n
+    opened[0] = True
 
-    keys = [0]  # Start with the key to the first box
+    keys = [0]
 
     while keys:
-        current_key = keys.pop()  # Get a key to use
+        current_key = keys.pop()
         for key in boxes[current_key]:
             if key < n and not opened[key]:
-                opened[key] = True  # Mark the box as opened
+                opened[key] = True
                 keys.append(key)
 
-    return all(opened)  # Return True if all boxes have been opened, else False
+    return all(opened)
