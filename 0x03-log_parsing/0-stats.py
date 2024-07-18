@@ -2,6 +2,7 @@
 
 import sys
 
+
 def print_msg(dict_sc, total_file_size):
     """
     Method to print
@@ -15,6 +16,7 @@ def print_msg(dict_sc, total_file_size):
     for key, val in sorted(dict_sc.items()):
         if val != 0:
             print("{}: {}".format(key, val))
+
 
 total_file_size = 0
 counter = 0
@@ -43,7 +45,9 @@ try:
         status_code = parts[8]
         file_size = parts[9]
 
-        if request != 'GET' or path != '/projects/260' or protocol != 'HTTP/1.1':
+        if (request != 'GET' or
+            path != '/projects/260' or
+                protocol != 'HTTP/1.1'):
             continue
 
         try:
@@ -64,5 +68,5 @@ except KeyboardInterrupt:
     print_msg(dict_sc, total_file_size)
     sys.exit(0)
 
-# Final statistics print in case the input ends before 10 lines are processed
+
 print_msg(dict_sc, total_file_size)
