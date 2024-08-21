@@ -1,32 +1,43 @@
 #!/usr/bin/python3
 """
-Making Change
+Making Change task
 """
 
 
 def makeChange(coins, total):
     """
-    Return the minimum number of coins needed to meet a given total.
-
+    Return the minimum number of coins needed to meet a given total
     Args:
         coins (list of ints): a list of coins of different values
         total (int): total value to be met
-
     Return:
-        int: Minimum number of coins or -1 if the total cannot be met
+        Number of coins or -1 if meeting the total is not possible
     """
     if total <= 0:
         return 0
+    if coins == [] or coins is None:
+        return -1
+    try:
+        n = coins.index(total)
+        return 1
+    except ValueError:
+        pass
 
-    # Initialize dp array with a large value representing "infinity"
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # Base case: 0 coins needed for a total of 0
-
-    # Iterate over all totals from 1 to total
-    for i in range(1, total + 1):
-        for coin in coins:
-            if coin <= i:
-                dp[i] = min(dp[i], dp[i - coin] + 1)
-
-    # If dp[total] is still infinity, it means the total cannot be met
-    return dp[total] if dp[total] != float('inf') else -1
+    coins.sort(reverse=True)
+    coin_count = 0
+    for i in coins:
+        if total % i == 0:
+            coin_count += int(total / i)
+            return coin_count
+        if total - i >= 0:
+            if int(total / i) > 1:
+                coin_count += int(total / i)
+                total = total % i
+            else:
+                coin_count += 1
+                total -= i
+                if total == 0:
+                    break
+    if total > 0:
+        return -1
+    return coin_count
